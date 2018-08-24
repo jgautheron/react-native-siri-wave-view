@@ -1,9 +1,9 @@
-
 #import "RNSiriWaveView.h"
 
 @implementation RNSiriWaveView
 
 NSTimer *waveTimer;
+CGFloat inputDecibels = -160;
 
 - (dispatch_queue_t)methodQueue
 {
@@ -55,7 +55,6 @@ RCT_CUSTOM_VIEW_PROPERTY(amplitude, NSNumber *, SCSiriWaveformView) {
     view.idleAmplitude = [json floatValue];
 }
 
-
 RCT_CUSTOM_VIEW_PROPERTY(density, NSNumber *, SCSiriWaveformView) {
     view.density = [json floatValue];
 }
@@ -63,7 +62,6 @@ RCT_CUSTOM_VIEW_PROPERTY(density, NSNumber *, SCSiriWaveformView) {
 RCT_CUSTOM_VIEW_PROPERTY(phaseShift, NSNumber *, SCSiriWaveformView) {
     view.phaseShift = [json floatValue];
 }
-
 
 RCT_CUSTOM_VIEW_PROPERTY(startAnimation, bool, SCSiriWaveformView) {
     if ([json integerValue] == 1 && waveTimer == NULL) {
@@ -80,6 +78,11 @@ RCT_CUSTOM_VIEW_PROPERTY(startAnimation, bool, SCSiriWaveformView) {
     }
 }
 
+RCT_CUSTOM_VIEW_PROPERTY(decibels, NSNumber *, SCSiriWaveformView) {
+    inputDecibels = [json floatValue];
+    [view updateWithLevel: [self _normalizedPowerLevelFromDecibels: [json floatValue]]];
+}
+
 RCT_CUSTOM_VIEW_PROPERTY(stopAnimation, bool, SCSiriWaveformView) {
     if ([json integerValue] == 1 && waveTimer != NULL) {
         [waveTimer invalidate];
@@ -89,8 +92,7 @@ RCT_CUSTOM_VIEW_PROPERTY(stopAnimation, bool, SCSiriWaveformView) {
 
 -(void)targetMethod:(NSTimer *)timer  {
     SCSiriWaveformView *siriWave = [timer userInfo];
-
-    [siriWave updateWithLevel: [self _normalizedPowerLevelFromDecibels: .1]];
+    [siriWave updateWithLevel: [self _normalizedPowerLevelFromDecibels: inputDecibels]];
 }
 
 - (CGFloat)_normalizedPowerLevelFromDecibels:(CGFloat)decibels {
@@ -127,4 +129,3 @@ RCT_CUSTOM_VIEW_PROPERTY(stopAnimation, bool, SCSiriWaveformView) {
 
 
 @end
-  
