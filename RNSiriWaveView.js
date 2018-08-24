@@ -28,7 +28,9 @@ class RNSiriWaveView extends Component {
     type: PropTypes.number,
 
     startAnimation: PropTypes.bool,
-    stopAnimation: PropTypes.bool
+    stopAnimation: PropTypes.bool,
+
+    decibels: PropTypes.number
   }
 
   static defaultProps = {
@@ -50,8 +52,12 @@ class RNSiriWaveView extends Component {
     type: 0,
 
     startAnimation: false,
-    stopAnimation: false
+    stopAnimation: false,
+
+    decibels: 0.5
   }
+
+
 
   render() {
     let {
@@ -70,7 +76,8 @@ class RNSiriWaveView extends Component {
       colors,
       type,
       startAnimation,
-      stopAnimation
+      stopAnimation,
+      decibels
     } = this.props;
 
     let SiriWave
@@ -97,6 +104,7 @@ class RNSiriWaveView extends Component {
       type={type}
       startAnimation={startAnimation}
       stopAnimation={stopAnimation}
+      decibels={decibels}
     />;
   }
 }
