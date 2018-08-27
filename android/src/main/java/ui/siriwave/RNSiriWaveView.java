@@ -100,6 +100,14 @@ public class RNSiriWaveView extends ViewGroupManager<ViewGroup> {
         siriWaveView.init(context, null);
     }
 
+    @ReactProp(name = "level")
+    public void updateWithLevel(FrameLayout frame, float level) {
+        SiriWaveView siriWaveView = (SiriWaveView) frame.getChildAt(0);
+        siriWaveView.updateWithLevel(level);
+
+        siriWaveView.init(context, null);
+    }
+
     @ReactProp(name = "startAnimation")
     public void setStartAnimation(FrameLayout SiriWaveViewFrame, boolean startAnimation) {
         SiriWaveView siriWaveView = (SiriWaveView) SiriWaveViewFrame.getChildAt(0);
