@@ -20,7 +20,7 @@ class RNSiriWaveView extends Component {
     primaryWaveLineWidth: PropTypes.number,
     secondaryWaveLineWidth: PropTypes.number,
     frequency: PropTypes.number,
-    amplitude: PropTypes.number,
+    idleAmplitude: PropTypes.number,
     density: PropTypes.number,
     phaseShift: PropTypes.number,
     colors: PropTypes.array,
@@ -43,7 +43,7 @@ class RNSiriWaveView extends Component {
     primaryWaveLineWidth: Platform.OS === "ios" ? 3 : 50,
     secondaryWaveLineWidth: 1,
     frequency: 1.5,
-    amplitude: 0.5,
+    idleAmplitude: 0.01,
     density: 5,
     phaseShift: -0.15,
     intensity: 0.3,
@@ -69,7 +69,7 @@ class RNSiriWaveView extends Component {
       primaryWaveLineWidth,
       secondaryWaveLineWidth,
       frequency,
-      amplitude,
+      idleAmplitude,
       density,
       phaseShift,
       intensity,
@@ -96,7 +96,7 @@ class RNSiriWaveView extends Component {
       primaryWaveLineWidth={primaryWaveLineWidth}
       secondaryWaveLineWidth={secondaryWaveLineWidth}
       frequency={frequency}
-      amplitude={amplitude}
+      idleAmplitude={idleAmplitude}
       density={density}
       phaseShift={phaseShift}
       intensity={intensity}
