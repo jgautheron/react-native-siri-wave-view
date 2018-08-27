@@ -3,7 +3,7 @@
 @implementation RNSiriWaveView
 
 NSTimer *waveTimer;
-CGFloat inputDecibels = -160;
+CGFloat lvl = 0;
 
 - (dispatch_queue_t)methodQueue
 {
@@ -78,9 +78,9 @@ RCT_CUSTOM_VIEW_PROPERTY(startAnimation, bool, SCSiriWaveformView) {
     }
 }
 
-RCT_CUSTOM_VIEW_PROPERTY(decibels, NSNumber *, SCSiriWaveformView) {
-    inputDecibels = [json floatValue];
-    [view updateWithLevel: [self _normalizedPowerLevelFromDecibels: [json floatValue]]];
+RCT_CUSTOM_VIEW_PROPERTY(level, NSNumber *, SCSiriWaveformView) {
+    lvl = [json floatValue];
+    [view updateWithLevel: [json floatValue]];
 }
 
 RCT_CUSTOM_VIEW_PROPERTY(stopAnimation, bool, SCSiriWaveformView) {
@@ -92,17 +92,8 @@ RCT_CUSTOM_VIEW_PROPERTY(stopAnimation, bool, SCSiriWaveformView) {
 
 -(void)targetMethod:(NSTimer *)timer  {
     SCSiriWaveformView *siriWave = [timer userInfo];
-    [siriWave updateWithLevel: [self _normalizedPowerLevelFromDecibels: inputDecibels]];
+    [siriWave updateWithLevel: lvl];
 }
-
-- (CGFloat)_normalizedPowerLevelFromDecibels:(CGFloat)decibels {
-    if (decibels < -60.0f || decibels == 0.0f) {
-        return 0.0f;
-    }
-    
-    return powf((powf(10.0f, 0.05f * decibels) - powf(10.0f, 0.05f * -60.0f)) * (1.0f / (1.0f - powf(10.0f, 0.05f * -60.0f))), 1.0f / 2.0f);
-}
-
 
 + (UIColor *) colorFromHexCode:(NSString *)hexString {
     NSString *cleanString = [hexString stringByReplacingOccurrencesOfString:@"#" withString:@""];
