@@ -153,4 +153,9 @@ public class SiriWaveView extends View {
         mPaint.setStrokeWidth(strokeWidth);
         invalidate();
     }
+
+    public void updateWithLevel(float lvl) {
+        level = lvl;
+        invalidate();
+    }
 }
