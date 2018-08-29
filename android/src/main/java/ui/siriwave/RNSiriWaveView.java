@@ -92,10 +92,10 @@ public class RNSiriWaveView extends ViewGroupManager<ViewGroup> {
         siriWaveView.init(context, null);
     }
 
-    @ReactProp(name = "amplitude")
-    public void setAmplitude(FrameLayout frame, int amplitude) {
+    @ReactProp(name = "idleAmplitude")
+    public void setIdleAmplitude(FrameLayout frame, float idleAmplitude) {
         SiriWaveView siriWaveView = (SiriWaveView) frame.getChildAt(0);
-        siriWaveView.amplitude = amplitude;
+        siriWaveView.IdleAmplitude = idleAmplitude;
 
         siriWaveView.init(context, null);
     }
